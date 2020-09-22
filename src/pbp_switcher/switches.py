@@ -44,16 +44,16 @@ class BaseSwitch(object):
             if force:
                 print('Cannot honor force flag when chosen mode is auto')
                 return
-            first = self.config['prefered']
-            print(f'auto mode trying to find a working mode, starting with prefered {first}')
+            first = self.config['preferred']
+            print(f'auto mode trying to find a working mode, starting with preferred {first}')
             c_res = self.comparator.compare_to_config(first)
             print(c_res)
             if not c_res['switch_needed'] and not c_res['reboot_needed']:
-                print(f'switch found prefered {first} already active and staged, no action required')
+                print(f'switch found preferred {first} already active and staged, no action required')
                 return
             if c_res['can_switch']:
                 op_mode = first
-                print(f'switch choosing to switch to prefered mode {op_mode}')
+                print(f'switch choosing to switch to preferred mode {op_mode}')
             else:
                 res = {}
                 for mode in ('pibook', 'hdmi', 'virtual'):
