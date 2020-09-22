@@ -1,0 +1,12 @@
+[Unit]
+# Human readable name of the unit
+Description=Display mode swicher for pi book pro and hdmi 
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python3 /opt/pbp_switcher/bin/pbp_switcher.py
+StandardOutput=file:/opt/pbp_switcher/switcher.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

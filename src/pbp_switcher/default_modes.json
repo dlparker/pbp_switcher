@@ -1,0 +1,100 @@
+{
+    "queries": {
+        "('pibook', 'hdmi')": {
+            "when": "2020-09-20T15:54:59.269591",
+            "lsusb": [
+                "Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+                "Bus 001 Device 005: ID 2e48:4293  ",
+                "Bus 001 Device 004: ID 0603:0002 Novatek Microelectronics Corp. ",
+                "Bus 001 Device 006: ID 17e9:ff00 DisplayLink ",
+                "Bus 001 Device 003: ID 05e3:0610 Genesys Logic, Inc. 4-port hub",
+                "Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub",
+                "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub",
+                ""
+            ],
+            "check_for_pi_book": {
+                "pi_book_pro": true,
+                "detected_by": [
+                    "Bus 001 Device 004: ID 0603:0002 Novatek Microelectronics Corp. ",
+                    "Bus 001 Device 006: ID 17e9:ff00 DisplayLink "
+                ]
+            },
+            "evdi_driver_path": "/lib/modules/5.4.51-v7l+/kernel/drivers/gpu/drm/evdi/evdi.ko",
+            "check_for_hdmi": {
+                "tvservice": "state 0xa [HDMI CUSTOM RGB lim 16:9], 1280x720 @ 60.00Hz, progressive\n"
+            }
+        },
+        "('pibook',)": {
+            "when": "2020-09-20T15:59:04.142072",
+            "lsusb": [
+                "Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+                "Bus 001 Device 005: ID 2e48:4293  ",
+                "Bus 001 Device 004: ID 0603:0002 Novatek Microelectronics Corp. ",
+                "Bus 001 Device 006: ID 17e9:ff00 DisplayLink ",
+                "Bus 001 Device 003: ID 05e3:0610 Genesys Logic, Inc. 4-port hub",
+                "Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub",
+                "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub",
+                ""
+            ],
+            "check_for_pi_book": {
+                "pi_book_pro": true,
+                "detected_by": [
+                    "Bus 001 Device 004: ID 0603:0002 Novatek Microelectronics Corp. ",
+                    "Bus 001 Device 006: ID 17e9:ff00 DisplayLink "
+                ]
+            },
+            "evdi_driver_path": "/lib/modules/5.4.51-v7l+/kernel/drivers/gpu/drm/evdi/evdi.ko",
+            "check_for_hdmi": {
+                "tvservice": "state 0x120001 [TV is off]\n"
+            }
+        },
+        "('hdmi', 'pibook')": {
+            "when": "2020-09-20T16:02:25.288718",
+            "lsusb": [
+                "Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+                "Bus 001 Device 005: ID 2e48:4293  ",
+                "Bus 001 Device 004: ID 0603:0002 Novatek Microelectronics Corp. ",
+                "Bus 001 Device 006: ID 17e9:ff00 DisplayLink ",
+                "Bus 001 Device 003: ID 05e3:0610 Genesys Logic, Inc. 4-port hub",
+                "Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub",
+                "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub",
+                ""
+            ],
+            "check_for_hdmi": {
+                "tvservice": "state 0xa [HDMI CUSTOM RGB full 4:3], 1024x768 @ 75.00Hz, progressive\n"
+            },
+            "check_for_pi_book": {
+                "pi_book_pro": true,
+                "detected_by": [
+                    "Bus 001 Device 004: ID 0603:0002 Novatek Microelectronics Corp. ",
+                    "Bus 001 Device 006: ID 17e9:ff00 DisplayLink "
+                ]
+            },
+            "evdi_driver_path": null
+        },
+        "('hdmi',)": {
+            "when": "2020-09-20T16:04:02.238888",
+            "lsusb": [
+                "Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+                "Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub",
+                "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub",
+                ""
+            ],
+            "check_for_hdmi": {
+                "tvservice": "state 0xa [HDMI CUSTOM RGB full 4:3], 1024x768 @ 75.00Hz, progressive\n"
+            }
+        },
+        "('virtual',)": {
+            "when": "2020-09-20T16:06:02.428009",
+            "lsusb": [
+                "Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub",
+                "Bus 001 Device 002: ID 2109:3431 VIA Labs, Inc. Hub",
+                "Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub",
+                ""
+            ],
+            "check_for_hdmi": {
+                "tvservice": "state 0x120001 [TV is off]\n"
+            }
+        }
+    }
+}
