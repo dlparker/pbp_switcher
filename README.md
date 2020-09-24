@@ -25,7 +25,7 @@ you don't need it.
 
    ```
    pi@raspberrypi:~ cd pbp_switcher
-   pi@raspberrypi:~ sudo cd ./install.sh
+   pi@raspberrypi:~ sudo ./install.sh
    ```
 If you like to live dangerously, you are done. If you like a little insurance,
 run the [sanity check](https://github.com/dlparker/pbp_switcher#sanity-check)
