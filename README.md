@@ -224,7 +224,7 @@ window. Or you can do it after connecting to your pi with SSH.
 
 The merge from the "fix_resolution" branch into master fixed this for me.
 The fix works by checking for the condition that sometimes occurs where
-xrandr -s 1920x1030 fails complaining that it is not a valid mode. I think
+xrandr -s 1920x1080 fails complaining that it is not a valid mode. I think
 what is happening (I am no expert) is that some part of the handshake between
 the pibook pro, the DisplayLink driver and the Xorg server is breaking down,
 and the reported mode is not accepted as valid.
