@@ -187,9 +187,21 @@ If it doesn't work, and you want to return your Pi to the original state and uni
 You can try some of the stuff that follows, and you might be able to get it to work. You can always
 uninstall if you get sick of fiddling with it.
 
+
+## Log and output files
+
+You might be able to puzzle out what is going on by examining the various log and output files.
+They are all located in /opt/pbp_switcher:
+
+1. switcher.out        # The standard output of the pbp_switcher when run by systemd, not by manual command
+2. pbp_switch.log      # General, high level logging. May contain error information when one occurs
+3. pbp_switch_dev.log  # Highly detailed log of the actions that pbp_switcher.py takes and the results it gets.
+
 ## Known issues
 
-###### The Pi Book Pro does not show the desktop
+###### The Pi Book Pro does not show the desktop PROBABLY FIXED
+
+See probable fix below
 
 Sometimes on my setup the desktop does not show up when the Pi Book
 Pro is attached at boot.  If I am running a VNC connection I can see
@@ -207,12 +219,22 @@ pi@raspberrypi:~ sudo systemctl restart display-manager.service
 If you are running VNC you can type this into a tiny little terminal
 window. Or you can do it after connecting to your pi with SSH.
 
-Maybe some future version of this tool set will add some sort of detect and
-fix tool for this condition. It might be possible to just use xrandr to
-force the resolution to match what the Pi Brook Pro expects, in the event that
-it is detected and configured. This would have to run after Xorg startup, of
-course, so probably something you have to put in your .profile or some other
-post desktop startup mechanism.
+
+###### Probable fix
+
+The merge from the "fix_resolution" branch into master fixed this for me.
+The fix works by checking for the condition that sometimes occurs where
+xrandr -s 1920x1030 fails complaining that it is not a valid mode. I think
+what is happening (I am no expert) is that some part of the handshake between
+the pibook pro, the DisplayLink driver and the Xorg server is breaking down,
+and the reported mode is not accepted as valid.
+
+The fix is to create a new mode line with some xrandr commands and then
+set the resolution with that new mode.
+
+This works for me in all the cases that I have seen, so if you still see this
+problem, it is most likely something else. Since my testing is limited to what
+I have on hand for hardware, I call it a probable fix.
 
 ###### VNC displays only a tiny screen if neither monitor type is attached.
 
