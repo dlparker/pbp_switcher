@@ -232,7 +232,7 @@ what is happening (I am no expert) is that some part of the handshake between
 the pibook pro, the DisplayLink driver and the Xorg server is breaking down,
 and the reported mode is not accepted as valid.
 
-The fix is to create a new mode line with some xrandr commands and then
+The fix creates a new mode line with some xrandr commands and then
 set the resolution with that new mode.
 
 This works for me in all the cases that I have seen, so if you still see this
