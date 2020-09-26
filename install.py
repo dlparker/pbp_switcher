@@ -2,6 +2,7 @@
 import os
 import sys
 import shutil
+import traceback
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 SRC_DIR=os.path.join(DIR, 'src')
@@ -13,12 +14,6 @@ if not os.path.exists(OPT_ROOT):
 BIN_DIR=os.path.join(OPT_ROOT, 'bin')
 if not os.path.exists(BIN_DIR):
    os.makedirs(BIN_DIR)
-try:
-   save_evdi_driver()
-except Exception as e:
-   print('Got error {e}')
-   print('Are you sure you have Pi Book Pro setup and working?')
-   sys.exit(1)
    
 MODULE_DIR=os.path.join(SRC_DIR, 'pbp_switcher')
 
@@ -36,13 +31,20 @@ shutil.copyfile(os.path.join(MODULE_DIR, "default_modes.json"),
 shutil.copyfile(os.path.join(MODULE_DIR, "default_modes.json"),
                 os.path.join(OPT_ROOT, "detected_modes.json"))
 
+shutil.copyfile(os.path.join(MODULE_DIR, "log.conf"),
+                os.path.join(OPT_ROOT, "log.conf"))
 
-                    
 
 os.system(f'chown -R pi:pi {OPT_ROOT}')
 os.system(f'chmod +x {OPT_ROOT}/bin/pbp_switcher.py')
 os.system(f'chmod +x {OPT_ROOT}/bin/pbp_detect.py')
 os.system(f'chmod +x {OPT_ROOT}/bin/pbp_set_mode.py')
+try:
+   save_evdi_driver()
+except Exception as e:
+   traceback.print_exc()
+   print('Are you sure you have Pi Book Pro setup and working?')
+   sys.exit(1)
 os.system(f'cp  {SRC_DIR}/pbp_switcher.service /etc/systemd/system')
 os.system('systemctl daemon-reload')
 os.system('systemctl enable pbp_switcher.service')
