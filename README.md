@@ -158,8 +158,9 @@ pi@raspberrypi:~ /opt/pbp_switcher/bin/pbp_set_mode.py -A -C pibook
 ## CAVEATS
 
 These tools and instructions have only been tested on a Raspberry Pi 4
-B running Raspberry Pi OS (Raspbian) Buster as released 2020-8-24, so
-make no assumptions that they will work on other hardware or
+B running Raspberry Pi OS (Raspbian) Buster as released 2020-8-24,
+and on [OpenPlotter](https://openmarine.net/openplotter) which
+is Raspbian based so make no assumptions that they will work on other hardware or
 releases.
 
 Having said that, the functions performed by the scripts are
