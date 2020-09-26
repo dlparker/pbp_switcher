@@ -1,7 +1,8 @@
 import os
 import sys
 import json
-from base import (DRIVER_PATH, OPT_ROOT, have_evdi_driver, restore_evdi_driver, read_config,
+from base import (get_logger, get_dev_logger, DRIVER_PATH, OPT_ROOT,
+                  have_evdi_driver, restore_evdi_driver, read_config,
                   remove_evdi_driver, run_depmod, get_lsusb_lines, check_for_hdmi)
 from compares import compare_classes
 
@@ -14,46 +15,70 @@ class BaseSwitch(object):
         self.skip_reboot = skip_reboot
         self.config = read_config()
         self.comparator = CompareClass()
+        self.logger = get_logger()
+        self.dev_logger = get_dev_logger()
         
 
     def switch_to_pibook(self):
-        print('restoring evdi driver file and running depmod')
+        msg = 'restoring evdi driver file and running depmod'
+        print(msg)
+        self.dev_logger.debug(msg)
         try:
             restore_evdi_driver()
             run_depmod()
         except Exception as e:
-            print(f'switcher encountered a problem, could not restore evdi driver {e}')
+            msg = f'switcher encountered a problem, could not restore evdi driver {e}'
+            print(msg)
+            self.logger.error(msg)
+            self.dev_logger.error(msg)
             sys.exit(1)
 
     def switch_to_hdmi(self):
         driver_state = have_evdi_driver()
         try:
-            print('saving and deleting evdi driver file and running depmod, reboot required to remove it')
+            msg = 'saving and deleting evdi driver file and running depmod, reboot required to remove it'
+            print(msg)
+            self.dev_logger.debug(msg)
             remove_evdi_driver() # also saves if needed
             run_depmod()
         except Exception as e:
-            print(f'switch encountered a problem, could not save and remove evdi driver {e}')
+            msg = f'switch encountered a problem, could not save and remove evdi driver {e}'
+            print(msg)
+            self.logger.error(msg)
+            self.dev_logger.error(msg)
             sys.exit(1)
         
     def switch_to_virtual(self):
-        print(f'switch does not have code for virtual op_mode yet')
+        msg = f'switch does not have code for virtual op_mode yet'
+        print(msg)
+        self.logger.error(msg)
+        self.dev_logger.error(msg)
 
     def do_op(self, force=False):
         op_mode = self.config['op_mode']
         if op_mode == "auto":
             if force:
-                print('Cannot honor force flag when chosen mode is auto')
+                msg = 'Cannot honor force flag when chosen mode is auto'
+                print(msg)
+                self.logger.error(msg)
+                self.dev_logger.error(msg)
                 return
             first = self.config['preferred']
-            print(f'auto mode trying to find a working mode, starting with preferred {first}')
+            msg = f'auto mode trying to find a working mode, starting with preferred {first}'
+            print(msg)
+            self.dev_logger.debug(msg)
             c_res = self.comparator.compare_to_config(first)
-            print(c_res)
+            self.dev_logger.debug(c_res)
             if not c_res['switch_needed'] and not c_res['reboot_needed']:
-                print(f'switch found preferred {first} already active and staged, no action required')
+                msg = f'switch found preferred {first} already active and staged, no action required'
+                print(msg)
+                self.dev_logger.debug(msg)
                 return
             if c_res['can_switch']:
                 op_mode = first
-                print(f'switch choosing to switch to preferred mode {op_mode}')
+                msg = f'switch choosing to switch to preferred mode {op_mode}'
+                print(msg)
+                self.dev_logger.debug(msg)
             else:
                 res = {}
                 for mode in ('pibook', 'hdmi', 'virtual'):
@@ -61,7 +86,9 @@ class BaseSwitch(object):
                         continue
                     res[mode] = c_res = self.comparator.compare_to_config(mode)
                     if not c_res['switch_needed'] and not c_res['reboot_needed']:
-                        print(f'switch found {mode} already active and staged, no action required')
+                        msg = f'switch found {mode} already active and staged, no action required'
+                        print(msg)
+                        self.dev_logger.debug(msg)
                         return
                 # if we got here, then attached device is not ready to go
                 op_mode = None
@@ -69,19 +96,28 @@ class BaseSwitch(object):
                     c_res = res[mode]
                     if c_res['can_switch']:
                         op_mode = mode
-                        print(f'auto mode selected {op_mode} as first mode that is ready for switch')
+                        msg =f'auto mode selected {op_mode} as first mode that is ready for switch'
+                        print(msg)
+                        self.dev_logger.debug(msg)
                 if op_mode is None:
-                    print(f'auto mode cannot locate a mode that is ready for switch')
+                    msg = f'auto mode cannot locate a mode that is ready for switch'
+                    print(msg)
+                    self.logger.error(msg)
+                    self.dev_logger.error(msg)
                     sys.exit(1)
 
         if not force:
             self.compare_result = self.comparator.compare_to_config(op_mode)
             self.modes = self.comparator.modes
             if not self.compare_result['switch_needed']:
-                print(f'switch found {op_mode} already active and staged, no action required')
+                msg = f'switch found {op_mode} already active and staged, no action required'
+                print(msg)
+                self.dev_logger.debug(msg)
                 return
             if not self.compare_result['can_switch']:
-                print(f'requested mode {op_mode} cannot be activated, detection comparison failed')
+                msg = f'requested mode {op_mode} cannot be activated, detection comparison failed'
+                print(msg)
+                self.dev_logger.debug(msg)
                 return
         else:
             self.compare_result = dict()
@@ -99,9 +135,16 @@ class BaseSwitch(object):
             self.switch_to_virtual()
         if self.compare_result['reboot_needed']:
             if self.skip_reboot:
-                print('not rebooting though reboot is required')
+                msg = 'not rebooting though reboot is required'
+                print(msg)
+                self.dev_logger.debug(msg)
             else:
-                print('rebooting as required')
+                msg = 'rebooting as required'
+                print(msg)
+                self.dev_logger.debug(msg)
+                self.logger.warning(msg)
+                self.logger.warning('PBP_SWITCHER FINISHED')
+                self.dev_logger.warning('PBP_SWITCHER FINISHED')
                 os.system('reboot')
             
         
