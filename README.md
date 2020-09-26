@@ -461,7 +461,7 @@ If you make changes and get them to work you can submit a pull request.
   - Once you have it working, you will no longer see anything on the HDMI monitor, but your Pi Book Pro will
     show the desktop once boot is complete. You will not see the boot text messages or the splash screen, you
     will just have a blank screen until the desktop. If you don't see the desktop, read
-    [this](https://github.com/dlparker/pbp_switcher#the-pibook-pro-does-not-show-the-desktop)
+    [this](https://github.com/dlparker/pbp_switcher#the-pi-book-pro-does-not-show-the-desktop)
 
 
 ###### Why do tools need sudo access?
