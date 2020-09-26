@@ -355,7 +355,7 @@ have to reboot five times between runs of the detector tool.
 
 Run this tool to get instructions on how to do this:
 ```
-pi@raspberrypi:~ /opt/pbp_switcher/bin/pbp_set_mode.py -i
+pi@raspberrypi:~ /opt/pbp_switcher/bin/pbp_detect.py -i
 ```
 
 Here is the recommended process:
