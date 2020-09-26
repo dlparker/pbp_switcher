@@ -15,7 +15,7 @@ you don't need it.
 
 1. Make sure your Pi Book Pro is plugged in and working as per [Pi Book Pro site setup page](https://pibookpro.com/pages/setup).
    you may want to [look here](https://github.com/dlparker/pbp_switcher#pre-install-setup-details) as well.
-2. Make sure networking is working SSH is active on your Pi in case something goes wrong. 
+2. Make sure networking is working and SSH is active on your Pi in case something goes wrong. 
 3. Download this code:
 
    ```
