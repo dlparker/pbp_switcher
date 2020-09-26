@@ -4,7 +4,7 @@
 
 Automatically switches OS configuration to activate either Pi Book Pro or HDMI
 monitor based on which is plugged in and which is "preferred". If you want to
-normally run the Pi with out the Pi Book Pro attached, either headless or with
+normally run the Pi without the Pi Book Pro attached, either headless or with
 and HDMI monitor, but sometimes attach the PBP. this package is for you. Otherwise
 you don't need it.
 
